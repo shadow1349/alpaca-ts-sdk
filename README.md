@@ -2,6 +2,8 @@
 
 This is an UnOfficial TypeScript SDK for the popular Alpaca Platform.
 
+<b>NOTE: At the moment this does not have Market Data integration, but it is on the Roadmap.</b>
+
 ## Installation
 
 `npm install alpaca-ts-sdk`
