@@ -3,6 +3,7 @@ import { AlpacaOptions } from './AlpacaOptions';
 import fetch from 'node-fetch';
 import moment = require('moment');
 import { AlpacaTimestamp } from './AlpacaTimestamp';
+import { URL } from 'url';
 
 export class AlpacaTime {
   hour: number;

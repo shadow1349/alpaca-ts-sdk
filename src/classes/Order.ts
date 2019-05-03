@@ -1,6 +1,7 @@
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
 import { AlpacaTimestamp } from './AlpacaTimestamp';
+import { URL } from 'url';
 
 export type OrderType = 'market' | 'limit' | 'stop' | 'stop_limit';
 export type OrderSide = 'buy' | 'sell';
