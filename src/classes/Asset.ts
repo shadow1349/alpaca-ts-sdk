@@ -5,6 +5,19 @@ import fetch from 'node-fetch';
 
 export type AssetStatus = 'active' | 'inactive';
 
+export interface AssetArchive {
+  ID: string;
+  AsOf: string;
+  Exchange: Exchange;
+  Symbol: string;
+  Cusip: string;
+  Status: AssetStatus;
+  Tradable: boolean;
+  Shortable: boolean;
+  ClosingPrice: number;
+  PrevClosingPrice: number;
+}
+
 export interface AssetEntity {
   id: string;
   asset_class: 'us_equity';
@@ -12,6 +25,7 @@ export interface AssetEntity {
   symbol: string;
   status: AssetStatus;
   tradable: boolean;
+  Archives?: AssetArchive[];
 }
 
 export class Asset {
@@ -40,7 +54,9 @@ export class Asset {
   }
 
   get(symbol: string): Promise<AssetEntity> {
-    return fetch(`${this.endpoint}/v1/asset/${symbol}`, { headers: this.headers }).then(res =>
+    return fetch(`${this.endpoint}/v1/assets/${symbol.toUpperCase()}`, {
+      headers: this.headers
+    }).then(res =>
       res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
     );
   }

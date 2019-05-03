@@ -67,6 +67,20 @@ interface AssetEntity {
   symbol: string;
   status: AssetStatus;
   tradable: boolean;
+  Archives?: AssetArchive[];
+}
+
+interface AssetArchive {
+  ID: string;
+  AsOf: string;
+  Exchange: Exchange;
+  Symbol: string;
+  Cusip: string;
+  Status: AssetStatus;
+  Tradable: boolean;
+  Shortable: boolean;
+  ClosingPrice: number;
+  PrevClosingPrice: number;
 }
 
 type AssetStatus = 'active' | 'inactive';
