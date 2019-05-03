@@ -1,6 +1,7 @@
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
 import { AlpacaTimestamp } from './AlpacaTimestamp';
+import fetch from 'node-fetch';
 
 export interface ClockEntity {
   timestamp: Date;

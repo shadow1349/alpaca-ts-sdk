@@ -1,6 +1,7 @@
 import { Exchange } from './Exchange';
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
+import fetch from 'node-fetch';
 
 export interface PositionEntity {
   asset_id: string;
