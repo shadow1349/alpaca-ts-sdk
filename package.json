@@ -1,10 +1,11 @@
 {
   "name": "alpaca-ts-sdk",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "UnOfficial Alpaca Trading SDK for TypeScript",
   "main": "lib/index.js",
   "scripts": {
-    "deploy": "tsc && npm publish"
+    "deploy": "tsc && npm publish",
+    "test": "tsc && node lib/index.js"
   },
   "author": "Sam Redmond",
   "license": "ISC",

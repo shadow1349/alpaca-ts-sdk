@@ -107,27 +107,71 @@ export class Order {
     }
 
     return fetch(url.href, { headers: this.headers })
-      .then(res =>
-        res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-      )
+      .then(async res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          const text = await res.text();
+          return Promise.reject(text);
+        }
+      })
       .then((json: any[]) => json.map(x => this.mapOrder(x)));
   }
 
   get(order_id: string) {
-    return fetch(`${this.endpoint}/v1/orders/${order_id}`, { headers: this.headers }).then(res =>
-      res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-    );
+    return fetch(`${this.endpoint}/v1/orders/${order_id}`, { headers: this.headers })
+      .then(async res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          const text = await res.text();
+          return Promise.reject(text);
+        }
+      })
+      .then(json => this.mapOrder(json));
   }
 
   submit(options: SubmitOrderOptions) {
+    const body: any = {
+      symbol: options.symbol.toUpperCase(),
+      qty: JSON.stringify(options.qty),
+      side: options.side,
+      type: options.type,
+      time_in_force: options.time_in_force
+    };
+
+    if (options.type === 'limit' && !options.limit_price) {
+      return Promise.reject('Limit orders must have a limit_price');
+    } else {
+      body['limit_price'] = options.limit_price;
+    }
+
+    if (options.type === 'stop' && !options.stop_price) {
+      return Promise.reject('Stop orders must have a stop_price');
+    } else {
+      body['stop_price'] = options.stop_price;
+    }
+
+    if (options.type === 'stop_limit' && (!options.stop_price && !options.limit_price)) {
+      return Promise.reject('Stop Limit orders must have a stop price and a limit price');
+    } else {
+      body['limit_price'] = options.limit_price;
+      body['stop_price'] = options.stop_price;
+    }
+
     return fetch(`${this.endpoint}/v1/orders`, {
       headers: this.headers,
-      body: JSON.stringify(options),
+      body: JSON.stringify(body),
       method: 'POST'
     })
-      .then(res =>
-        res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-      )
+      .then(async res => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          const text = await res.text();
+          return Promise.reject(text);
+        }
+      })
       .then(json => this.mapOrder(json));
   }
 
@@ -135,9 +179,14 @@ export class Order {
     return fetch(`${this.endpoint}/v1/orders/${order_id}`, {
       headers: this.headers,
       method: 'DELETE'
-    }).then(res =>
-      res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-    );
+    }).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return Promise.resolve(true);
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
   }
 
   private mapOrder(json: any) {
@@ -161,7 +210,7 @@ export class Order {
       time_in_force: json.time_in_force,
       limit_price: json.limit_price ? parseFloat(json.limit_price) : null,
       stop_price: json.stop_price ? parseFloat(json.stop_price) : null,
-      filled_avg_price: parseFloat(json.filled_avg_price),
+      filled_avg_price: json.filled_avg_price ? parseFloat(json.filled_avg_price) : null,
       status: json.status
     } as OrderEntity;
   }
