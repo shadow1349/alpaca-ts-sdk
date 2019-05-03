@@ -1,0 +1,22 @@
+{
+  "name": "alpaca-ts",
+  "version": "1.0.0",
+  "description": "Unofficial Alpaca Trading SDK for TypeScript",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "tsc && node lib/index.js"
+  },
+  "author": "Sam Redmond",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/moment": "^2.13.0",
+    "@types/node": "^11.13.9",
+    "@types/node-fetch": "^2.3.3",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  },
+  "dependencies": {
+    "moment": "^2.24.0",
+    "node-fetch": "^2.5.0"
+  }
+}

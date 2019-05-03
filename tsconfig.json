@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "lib",
+    "strict": true,
+    "target": "es6",
+    "lib": ["dom", "es6", "es5"]
+  },
+  "compileOnSave": true,
+  "include": ["src"]
+}
