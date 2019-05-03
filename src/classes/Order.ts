@@ -79,27 +79,29 @@ export class Order {
     };
   }
 
-  getAll(options: GetAllOrdersOptions) {
+  getAll(options?: GetAllOrdersOptions) {
     const url = new URL(`${this.endpoint}/v1/orders`);
 
-    if (options.after) {
-      url.searchParams.append('after', new AlpacaTimestamp(options.after).getTimestamp());
-    }
+    if (options) {
+      if (options.after) {
+        url.searchParams.append('after', new AlpacaTimestamp(options.after).getTimestamp());
+      }
 
-    if (options.direction) {
-      url.searchParams.append('direction', options.direction);
-    }
+      if (options.direction) {
+        url.searchParams.append('direction', options.direction);
+      }
 
-    if (options.limit) {
-      url.searchParams.append('limit', JSON.stringify(options.limit));
-    }
+      if (options.limit) {
+        url.searchParams.append('limit', JSON.stringify(options.limit));
+      }
 
-    if (options.status) {
-      url.searchParams.append('status', options.status);
-    }
+      if (options.status) {
+        url.searchParams.append('status', options.status);
+      }
 
-    if (options.until) {
-      url.searchParams.append('until', new AlpacaTimestamp(options.until).getTimestamp());
+      if (options.until) {
+        url.searchParams.append('until', new AlpacaTimestamp(options.until).getTimestamp());
+      }
     }
 
     return fetch(url.href, { headers: this.headers })

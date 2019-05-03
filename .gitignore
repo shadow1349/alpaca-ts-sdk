@@ -13,6 +13,7 @@ app.yaml
 serviceAccount.json
 .env
 .npmrc
+lib/
 
 # Firebase config
 
