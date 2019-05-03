@@ -31,7 +31,7 @@ export interface GetAllOrdersOptions {
   direction?: 'asc' | 'desc';
 }
 
-export interface SubmitOrderOptions {
+export type SubmitOrderOptions = {
   symbol: string;
   qty: number;
   side: OrderSide;
@@ -42,7 +42,7 @@ export interface SubmitOrderOptions {
   limit_price?: number;
   // required if type is stop or stop_limit
   stop_price?: number;
-}
+};
 
 export interface OrderEntity {
   id: string;
