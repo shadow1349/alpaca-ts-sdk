@@ -2,6 +2,7 @@ import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
 import fetch from 'node-fetch';
 import moment = require('moment');
+import { AlpacaTimestamp } from './AlpacaTimestamp';
 
 export class AlpacaTime {
   hour: number;
@@ -14,7 +15,7 @@ export class AlpacaTime {
   }
 }
 
-export interface ICalendar {
+export interface CalendarEntity {
   date: Date;
   open: AlpacaTime;
   close: AlpacaTime;
@@ -34,7 +35,12 @@ export class Calendar {
   }
 
   get(start: Date, end: Date) {
-    return fetch(`${this.endpoint}/v1/calendar`, { headers: this.headers })
+    const url = new URL(`${this.endpoint}/v1/calendar`);
+
+    url.searchParams.append('start', new AlpacaTimestamp(start).getTimestamp());
+    url.searchParams.append('end', new AlpacaTimestamp(end).getTimestamp());
+
+    return fetch(url.href, { headers: this.headers })
       .then(res =>
         res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
       )
@@ -44,7 +50,7 @@ export class Calendar {
             date: moment(json.date).toDate(),
             open: new AlpacaTime(json.open),
             close: new AlpacaTime(json.close)
-          } as ICalendar)
+          } as CalendarEntity)
       );
   }
 }

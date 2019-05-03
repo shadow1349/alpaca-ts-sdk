@@ -1,7 +1,7 @@
 {
-  "name": "alpaca-ts",
+  "name": "alpaca-ts-sdk",
   "version": "1.0.0",
-  "description": "Unofficial Alpaca Trading SDK for TypeScript",
+  "description": "UnOfficial Alpaca Trading SDK for TypeScript",
   "main": "lib/index.js",
   "scripts": {
     "test": "tsc && node lib/index.js"

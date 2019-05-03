@@ -2,7 +2,7 @@ import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
 import { AlpacaTimestamp } from './AlpacaTimestamp';
 
-export interface IClock {
+export interface ClockEntity {
   timestamp: Date;
   is_open: boolean;
   next_open: Date;
@@ -34,7 +34,7 @@ export class Clock {
             is_open: json.is_open,
             next_open: new AlpacaTimestamp(json.next_open).getDate(),
             next_close: new AlpacaTimestamp(json.next_close).getDate()
-          } as IClock)
+          } as ClockEntity)
       );
   }
 }

@@ -2,7 +2,7 @@ import { Exchange } from './Exchange';
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
 
-export interface IPosition {
+export interface PositionEntity {
   asset_id: string;
   symbol: string;
   exchange: Exchange;
@@ -68,6 +68,6 @@ export class Position {
       current_price: parseFloat(json.current_price),
       lastday_price: parseFloat(json.lastday_price),
       change_today: parseFloat(json.change_today)
-    } as IPosition;
+    } as PositionEntity;
   }
 }

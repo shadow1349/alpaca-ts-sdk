@@ -42,7 +42,7 @@ export interface SubmitOrderOptions {
   stop_price?: number;
 }
 
-export interface IOrder {
+export interface OrderEntity {
   id: string;
   client_order_id: string;
   created_at: Date;
@@ -159,6 +159,6 @@ export class Order {
       stop_price: json.stop_price ? parseFloat(json.stop_price) : null,
       filled_avg_price: parseFloat(json.filled_avg_price),
       status: json.status
-    } as IOrder;
+    } as OrderEntity;
   }
 }

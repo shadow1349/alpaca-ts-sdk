@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 
 export type AssetStatus = 'active' | 'inactive';
 
-export interface IAsset {
+export interface AssetEntity {
   id: string;
   asset_class: 'us_equity';
   exchange: Exchange;
@@ -27,7 +27,7 @@ export class Asset {
     };
   }
 
-  getAll(status?: AssetStatus): Promise<Asset[]> {
+  getAll(status?: AssetStatus): Promise<AssetEntity[]> {
     let url = `${this.endpoint}/v1/assets`;
 
     if (status) {
@@ -39,7 +39,7 @@ export class Asset {
     );
   }
 
-  get(symbol: string): Promise<Asset> {
+  get(symbol: string): Promise<AssetEntity> {
     return fetch(`${this.endpoint}/v1/asset/${symbol}`, { headers: this.headers }).then(res =>
       res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
     );

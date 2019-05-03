@@ -12,7 +12,7 @@ export type AccountStatus =
   | 'ACTIVE'
   | 'REJECTED';
 
-export interface IAccount {
+export interface AccountEntity {
   id: string;
   status: AccountStatus;
   currency: 'USD';
@@ -62,7 +62,7 @@ export class Account {
             transfers_blocked: json.transfers_blocked,
             account_blocked: json.account_blocked,
             created_at: new AlpacaTimestamp(json.created_at).getDate()
-          } as IAccount)
+          } as AccountEntity)
       );
   }
 }
