@@ -1,7 +1,7 @@
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
 import fetch from 'node-fetch';
-import { AlpacaTimestamp } from './AlpacaTimestamp';
+import { AlpacaTimestamp, GetAlpacaTimestamp } from './AlpacaTimestamp';
 import { URL } from 'url';
 
 export class AlpacaTime {
@@ -16,7 +16,7 @@ export class AlpacaTime {
 }
 
 export interface CalendarEntity {
-  date: Date;
+  date: string;
   open: AlpacaTime;
   close: AlpacaTime;
 }
@@ -37,8 +37,8 @@ export class Calendar {
   get(start: Date, end: Date) {
     const url = new URL(`${this.endpoint}/v1/calendar`);
 
-    url.searchParams.append('start', new AlpacaTimestamp(start).dateString);
-    url.searchParams.append('end', new AlpacaTimestamp(end).dateString);
+    url.searchParams.append('start', GetAlpacaTimestamp(start));
+    url.searchParams.append('end', GetAlpacaTimestamp(end));
 
     return fetch(url.href, { headers: this.headers })
       .then(async res => {
@@ -52,8 +52,8 @@ export class Calendar {
       .then(
         json =>
           ({
-            date: new AlpacaTimestamp(json.date).date,
-            open: new AlpacaTime(json.open),
+            date: json.date,
+            open: json.open,
             close: new AlpacaTime(json.close)
           } as CalendarEntity)
       );

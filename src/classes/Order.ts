@@ -1,6 +1,6 @@
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import { AlpacaOptions } from './AlpacaOptions';
-import { AlpacaTimestamp } from './AlpacaTimestamp';
+import { AlpacaTimestamp, GetAlpacaTimestamp } from './AlpacaTimestamp';
 import { URL } from 'url';
 import fetch from 'node-fetch';
 
@@ -86,7 +86,7 @@ export class Order {
 
     if (options) {
       if (options.after) {
-        url.searchParams.append('after', new AlpacaTimestamp(options.after).dateString);
+        url.searchParams.append('after', GetAlpacaTimestamp(options.after));
       }
 
       if (options.direction) {
@@ -102,7 +102,7 @@ export class Order {
       }
 
       if (options.until) {
-        url.searchParams.append('until', new AlpacaTimestamp(options.until).dateString);
+        url.searchParams.append('until', GetAlpacaTimestamp(options.until));
       }
     }
 
@@ -193,13 +193,13 @@ export class Order {
     return {
       id: json.id,
       client_order_id: json.client_order_id,
-      created_at: new AlpacaTimestamp(json.created_at).date,
-      updated_at: json.updated_at ? new AlpacaTimestamp(json.updated_at).date : null,
-      submitted_at: json.submitted_at ? new AlpacaTimestamp(json.submitted_at).date : null,
-      filled_at: json.filled_at ? new AlpacaTimestamp(json.filled_at).date : null,
-      expired_at: json.expired_at ? new AlpacaTimestamp(json.expired_at).date : null,
-      canceled_at: json.canceled_at ? new AlpacaTimestamp(json.canceled_at).date : null,
-      failed_at: json.failed_at ? new AlpacaTimestamp(json.failed_at).date : null,
+      created_at: json.created_at,
+      updated_at: json.updated_at,
+      submitted_at: json.submitted_at,
+      filled_at: json.filled_at,
+      expired_at: json.expired_at,
+      canceled_at: json.canceled_at,
+      failed_at: json.failed_at,
       asset_id: json.asset_id,
       symbol: json.symbol,
       asset_class: json.asset_class,

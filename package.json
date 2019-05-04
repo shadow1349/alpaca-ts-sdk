@@ -1,10 +1,11 @@
 {
   "name": "alpaca-ts-sdk",
-  "version": "1.0.7-beta.1",
+  "version": "1.0.7-beta.3",
   "description": "UnOfficial Alpaca Trading SDK for TypeScript",
   "main": "lib/index.js",
   "scripts": {
-    "deploy": "tsc && npm publish",
+    "deploy": "npm run build && npm publish",
+    "deploy:beta": "npm run build && npm publish --tag beta",
     "build": "node_modules/.bin/tsc",
     "test": "npm run build && node lib/index.js"
   },

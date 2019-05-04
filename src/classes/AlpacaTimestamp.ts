@@ -1,4 +1,14 @@
 // FORMAT: YYYY-MM-DDTHH:mm:ss[Z]
+
+export const GetAlpacaTimestamp = function(date: Date) {
+  const GMTTime = new Date(date.valueOf() + date.getTimezoneOffset() * 60000);
+  return`${GMTTime.getFullYear()}-${
+    GMTTime.getMonth() < 10 ? `0${GMTTime.getMonth()}` : GMTTime.getMonth()
+  }-${
+    GMTTime.getDate() < 10 ? `0${GMTTime.getDate()}` : GMTTime.getDate()
+  }T${GMTTime.getHours()}:${GMTTime.getMinutes()}:${GMTTime.getSeconds()}Z`;
+}
+
 export class AlpacaTimestamp {
   dateString: string;
   date: Date;
@@ -22,7 +32,7 @@ export class AlpacaTimestamp {
   }
 
   private getUTCDate(date: string) {
-    const GMTDate = new Date(this.date);
+    const GMTDate = new Date(date);
 
     return new Date(
       GMTDate.getUTCFullYear(),

@@ -12,7 +12,7 @@ interface SymbolEntity {
   name: string;
   type: string;
   url: string;
-  updated: Date;
+  updated: string;
   isOTC: boolean;
 }
 
@@ -49,12 +49,12 @@ interface AnalystRating {
   hold: Rating;
   sell: Rating;
   strongSell: Rating;
-  updated: Date;
+  updated: string;
 }
 
 interface Change {
   symbol: string;
-  date: Date;
+  date: string;
   type: string;
   listingChange: string;
   exchange: string;
@@ -66,7 +66,7 @@ interface Company {
   exchange: string;
   name: string;
   symbol: string;
-  listdate: Date;
+  listdate: string;
   cik: string;
   bloomberg?: string;
   figi?: string;
@@ -83,16 +83,16 @@ interface Company {
   description: string;
   similar?: string[];
   tags?: string[];
-  updated: Date;
+  updated: string;
 }
 
 interface Dividend {
   symbol: string;
   type: string;
-  exDate: Date;
-  paymentDate: Date;
-  recordDate: Date;
-  declaredDate: Date;
+  exDate: string;
+  paymentDate: string;
+  recordDate: string;
+  declaredDate: string;
   amount: number;
   qualified: string;
   flag: string;
@@ -100,7 +100,7 @@ interface Dividend {
 
 interface Earning {
   symbol: string;
-  EPSReportDate: Date;
+  EPSReportDate: string;
   EPSReportDateStr: string;
   fiscalPeriod: string;
   fiscalEndDate: string;
@@ -117,7 +117,7 @@ interface Earning {
 
 interface Financial {
   symbol: string;
-  reportDate: Date;
+  reportDate: string;
   reportDateStr: string;
   grossProfit: number;
   costOfRevenue: number;
@@ -147,16 +147,16 @@ interface News {
   source: string;
   summary: string;
   image?: string;
-  timestamp: Date;
+  timestamp: string;
   keywords: string[];
 }
 
 interface Split {
   symbol: string;
-  exDate: Date;
-  paymentDate: Date;
-  recordDate: Date;
-  declaredDate: Date;
+  exDate: string;
+  paymentDate: string;
+  recordDate: string;
+  declaredDate: string;
   ratio: number;
   tofactor: number;
   forfactor: number;

@@ -49,7 +49,7 @@ interface IAccount {
   trading_blocked: boolean;
   transfers_blocked: boolean;
   account_blocked: boolean;
-  created_at: Date;
+  created_at: string;
 }
 ```
 
@@ -96,7 +96,7 @@ type AssetStatus = 'active' | 'inactive';
 
 ```typescript
 interface CalendarEntity {
-  date: Date;
+  date: string;
   open: AlpacaTime;
   close: AlpacaTime;
 }
@@ -110,10 +110,10 @@ interface CalendarEntity {
 
 ```typescript
 interface ClockEntity {
-  timestamp: Date;
+  timestamp: string;
   is_open: boolean;
-  next_open: Date;
-  next_close: Date;
+  next_open: string;
+  next_close: string;
 }
 ```
 
@@ -127,13 +127,13 @@ interface ClockEntity {
 interface OrderEntity {
   id: string;
   client_order_id: string;
-  created_at: Date;
-  updated_at?: Date;
-  submitted_at?: Date;
-  filled_at?: Date;
-  expired_at?: Date;
-  canceled_at?: Date;
-  failed_at?: Date;
+  created_at: string;
+  updated_at?: string;
+  submitted_at?: string;
+  filled_at?: string;
+  expired_at?: string;
+  canceled_at?: string;
+  failed_at?: string;
   asset_id: string;
   symbol: string;
   asset_class: string;
@@ -164,8 +164,8 @@ interface SubmitOrderOptions {
 interface GetAllOrdersOptions {
   status?: 'open' | 'closed' | 'all';
   limit?: number;
-  after?: Date;
-  until?: Date;
+  after?: string;
+  until?: string;
   direction?: 'asc' | 'desc';
 }
 ```

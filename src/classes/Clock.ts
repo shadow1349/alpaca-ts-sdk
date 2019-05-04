@@ -4,10 +4,10 @@ import { AlpacaTimestamp } from './AlpacaTimestamp';
 import fetch from 'node-fetch';
 
 export interface ClockEntity {
-  timestamp: Date;
+  timestamp: string;
   is_open: boolean;
-  next_open: Date;
-  next_close: Date;
+  next_open: string;
+  next_close: string;
 }
 
 export class Clock {
@@ -36,10 +36,10 @@ export class Clock {
       .then(
         json =>
           ({
-            timestamp: new AlpacaTimestamp(json.timestamp).date,
+            timestamp: json.timestamp,
             is_open: json.is_open,
-            next_open: new AlpacaTimestamp(json.next_open).date,
-            next_close: new AlpacaTimestamp(json.next_close).date
+            next_open: json.next_open,
+            next_close: json.next_close
           } as ClockEntity)
       );
   }

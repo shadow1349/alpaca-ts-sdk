@@ -24,7 +24,7 @@ export interface AccountEntity {
   trading_blocked: boolean;
   transfers_blocked: boolean;
   account_blocked: boolean;
-  created_at: Date;
+  created_at: string;
 }
 
 export class Account {
@@ -66,7 +66,7 @@ export class Account {
             trading_blocked: json.trading_blocked,
             transfers_blocked: json.transfers_blocked,
             account_blocked: json.account_blocked,
-            created_at: new AlpacaTimestamp(json.created_at).date
+            created_at: json.created_at
           } as AccountEntity)
       );
   }
