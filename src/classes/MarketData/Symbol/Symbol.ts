@@ -43,7 +43,7 @@ export class Symbol {
   }
 
   get(symbol: string): Promise<SymbolResponse> {
-    return fetch(`${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}?apiKey=${this.apikey}`)
+    return fetch(`${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}?apiKey=${this.apikey}`)
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
           return res.json();
@@ -60,7 +60,7 @@ export class Symbol {
 
   getCompanyDetails(symbol: string): Promise<Company> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/company?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/company?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -80,7 +80,7 @@ export class Symbol {
 
   getDividends(symbol: string): Promise<Dividend[]> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/dividends?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/dividends?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -103,7 +103,7 @@ export class Symbol {
 
   getEarnings(symbol: string): Promise<Earning[]> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/earnings?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/earnings?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -124,7 +124,7 @@ export class Symbol {
 
   getAnalystRatings(symbol: string): Promise<AnalystRating> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/analysts?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/analysts?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -142,7 +142,7 @@ export class Symbol {
 
   getChanges(symbol: string): Promise<Change[]> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/changes?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/changes?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -162,7 +162,7 @@ export class Symbol {
 
   getSplits(symbol: string): Promise<Split[]> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/splits?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/splits?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -185,7 +185,7 @@ export class Symbol {
 
   getNews(symbol: string): Promise<News[]> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/news?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/news?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {
@@ -205,7 +205,7 @@ export class Symbol {
 
   getFinancials(symbol: string): Promise<Financial[]> {
     return fetch(
-      `${PolygonEndpoint}/meta/symbols/${symbol.toUpperCase()}/financials?apiKey=${this.apikey}`
+      `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/financials?apiKey=${this.apikey}`
     )
       .then(async res => {
         if (res.status === 200 || res.status === 204) {

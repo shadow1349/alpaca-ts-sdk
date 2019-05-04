@@ -1,4 +1,14 @@
-import { AlpacaOptions, Account, Asset, Calendar, Clock, Order, Position, Symbol } from './classes';
+import {
+  AlpacaOptions,
+  Account,
+  Asset,
+  Calendar,
+  Clock,
+  Order,
+  Position,
+  Symbol,
+  Ticker
+} from './classes';
 
 export class Alpaca {
   private options: AlpacaOptions;
@@ -13,6 +23,7 @@ export class Alpaca {
 
   // Market Data Classes
   Symbol: Symbol;
+  Ticker: Ticker;
 
   constructor(options: AlpacaOptions) {
     this.options = options;
@@ -30,5 +41,6 @@ export class Alpaca {
 
     // Market Data Classes
     this.Symbol = new Symbol(this.options);
+    this.Ticker = new Ticker(this.options);
   }
 }
