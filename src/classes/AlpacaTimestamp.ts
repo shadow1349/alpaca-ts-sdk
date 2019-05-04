@@ -8,7 +8,7 @@ export class AlpacaTimestamp {
   }
 
   getDate() {
-    return moment(this.date).toDate();
+    return new Date(this.date); // return moment(this.date).toDate();
   }
 
   getTimestamp() {

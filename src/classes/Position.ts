@@ -37,17 +37,27 @@ export class Position {
 
   getAll() {
     return fetch(`${this.endpoint}/v1/positions`, { headers: this.headers })
-      .then(res =>
-        res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-      )
+      .then(async res => {
+        if (res.status === 200 || res.status === 204) {
+          return res.json();
+        } else {
+          const text = await res.text();
+          return Promise.reject(text);
+        }
+      })
       .then((json: any[]) => json.map(x => this.mapPosition(x)));
   }
 
   get(symbol: string) {
     return fetch(`${this.endpoint}/v1/positions/${symbol}`, { headers: this.headers })
-      .then(res =>
-        res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-      )
+      .then(async res => {
+        if (res.status === 200 || res.status === 204) {
+          return res.json();
+        } else {
+          const text = await res.text();
+          return Promise.reject(text);
+        }
+      })
       .then(json => this.mapPosition(json));
   }
 

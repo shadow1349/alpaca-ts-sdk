@@ -48,9 +48,14 @@ export class Asset {
       url = `${url}?status=${status}`;
     }
 
-    return fetch(url, { headers: this.headers }).then(res =>
-      res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-    );
+    return fetch(url, { headers: this.headers }).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return res.json();
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
   }
 
   get(symbol: string): Promise<AssetEntity> {

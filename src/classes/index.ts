@@ -6,5 +6,6 @@ export * from './Asset';
 export * from './Calendar';
 export * from './Clock';
 export * from './Exchange';
+export * from './MarketData';
 export * from './Order';
 export * from './Position';

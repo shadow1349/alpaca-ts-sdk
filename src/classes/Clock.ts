@@ -25,9 +25,14 @@ export class Clock {
 
   get() {
     return fetch(`${this.endpoint}/v1/clock`, { headers: this.headers })
-      .then(res =>
-        res.status === 200 ? res.json() : Promise.reject(`${res.status} - ${res.statusText}`)
-      )
+      .then(async res => {
+        if (res.status === 200 || res.status === 204) {
+          return res.json();
+        } else {
+          const text = await res.text();
+          return Promise.reject(text);
+        }
+      })
       .then(
         json =>
           ({
