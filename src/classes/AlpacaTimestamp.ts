@@ -1,20 +1,36 @@
-import * as moment from 'moment';
-
-// TODO: this is all messed up because it is constantly in GMT rather than localtime because of the Z
+// FORMAT: YYYY-MM-DDTHH:mm:ss[Z]
 export class AlpacaTimestamp {
-  private date: string | Date;
+  dateString: string;
+  date: Date;
+
   constructor(date: string | Date) {
-    this.date = date;
+    if (date instanceof Date) {
+      this.date = date;
+      this.dateString = this.getTimestamp(date);
+    } else {
+      this.dateString = date;
+      this.date = this.getUTCDate(date);
+    }
   }
 
-  getDate() {
-    return new Date(this.date); // return moment(this.date).toDate();
+  private getTimestamp(date: Date) {
+    return `${date.getFullYear()}-${
+      date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+    }-${
+      date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
+    }T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}Z`;
   }
 
-  getTimestamp() {
-    return moment(this.date).format('YYYY-MM-DDTHH:mm:ssZ');
+  private getUTCDate(date: string) {
+    const GMTDate = new Date(this.date);
+
+    return new Date(
+      GMTDate.getUTCFullYear(),
+      GMTDate.getUTCMonth(),
+      GMTDate.getUTCDate(),
+      GMTDate.getUTCHours(),
+      GMTDate.getUTCMinutes(),
+      GMTDate.getUTCSeconds()
+    );
   }
 }
-
-// 2018-10-01T13:35:25Z
-// 2019-05-02T17:54:43Z

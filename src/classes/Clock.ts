@@ -36,10 +36,10 @@ export class Clock {
       .then(
         json =>
           ({
-            timestamp: new AlpacaTimestamp(json.timestamp).getDate(),
+            timestamp: new AlpacaTimestamp(json.timestamp).date,
             is_open: json.is_open,
-            next_open: new AlpacaTimestamp(json.next_open).getDate(),
-            next_close: new AlpacaTimestamp(json.next_close).getDate()
+            next_open: new AlpacaTimestamp(json.next_open).date,
+            next_close: new AlpacaTimestamp(json.next_close).date
           } as ClockEntity)
       );
   }

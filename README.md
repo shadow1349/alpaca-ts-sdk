@@ -208,3 +208,7 @@ interface PositionEntity {
 `getAll(): Promise<PositionEntity[]>`
 
 `get(symbol: string): Promise<PositionEntity>`
+
+### Market Data
+
+Beta release includes Market Data Polygon integration

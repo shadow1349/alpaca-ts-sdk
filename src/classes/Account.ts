@@ -66,7 +66,7 @@ export class Account {
             trading_blocked: json.trading_blocked,
             transfers_blocked: json.transfers_blocked,
             account_blocked: json.account_blocked,
-            created_at: new AlpacaTimestamp(json.created_at).getDate()
+            created_at: new AlpacaTimestamp(json.created_at).date
           } as AccountEntity)
       );
   }

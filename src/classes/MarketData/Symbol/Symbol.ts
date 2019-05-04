@@ -53,7 +53,7 @@ export class Symbol {
         }
       })
       .then(json => {
-        json.symbol.updated = new AlpacaTimestamp(json.symbol.updated).getDate();
+        json.symbol.updated = new AlpacaTimestamp(json.symbol.updated).date;
         return json;
       });
   }
@@ -71,8 +71,8 @@ export class Symbol {
         }
       })
       .then(json => {
-        json['listdate'] = new AlpacaTimestamp(json.listdate).getDate();
-        json['updated'] = new AlpacaTimestamp(json.updated).getDate();
+        json['listdate'] = new AlpacaTimestamp(json.listdate).date;
+        json['updated'] = new AlpacaTimestamp(json.updated).date;
 
         return json;
       });
@@ -92,10 +92,10 @@ export class Symbol {
       })
       .then((json: any[]) =>
         json.map(x => {
-          x.exDate = new AlpacaTimestamp(x.exDate).getDate();
-          x.paymentDate = new AlpacaTimestamp(x.paymentDate).getDate();
-          x.recordDate = new AlpacaTimestamp(x.recordDate).getDate();
-          x.declaredDate = new AlpacaTimestamp(x.declaredDate).getDate();
+          x.exDate = new AlpacaTimestamp(x.exDate).date;
+          x.paymentDate = new AlpacaTimestamp(x.paymentDate).date;
+          x.recordDate = new AlpacaTimestamp(x.recordDate).date;
+          x.declaredDate = new AlpacaTimestamp(x.declaredDate).date;
           return x;
         })
       );
@@ -115,8 +115,8 @@ export class Symbol {
       })
       .then((json: any[]) =>
         json.map(x => {
-          x.EPSReportDate = new AlpacaTimestamp(x.EPSReportDate).getDate();
-          x.fiscalEndDate = new AlpacaTimestamp(x.fiscalEndDate).getDate();
+          x.EPSReportDate = new AlpacaTimestamp(x.EPSReportDate).date;
+          x.fiscalEndDate = new AlpacaTimestamp(x.fiscalEndDate).date;
           return x;
         })
       );
@@ -135,7 +135,7 @@ export class Symbol {
         }
       })
       .then(json => {
-        json.updated = new AlpacaTimestamp(json.updated).getDate();
+        json.updated = new AlpacaTimestamp(json.updated).date;
         return json;
       });
   }
@@ -154,7 +154,7 @@ export class Symbol {
       })
       .then((json: any[]) =>
         json.map(x => {
-          x.date = new AlpacaTimestamp(x.date).getDate();
+          x.date = new AlpacaTimestamp(x.date).date;
           return x;
         })
       );
@@ -174,10 +174,10 @@ export class Symbol {
       })
       .then((json: any[]) =>
         json.map(x => {
-          x.exDate = new AlpacaTimestamp(x.exDate).getDate();
-          x.paymentDate = new AlpacaTimestamp(x.paymentDate).getDate();
-          x.recordDate = new AlpacaTimestamp(x.recordDate).getDate();
-          x.declaredDate = new AlpacaTimestamp(x.declaredDate).getDate();
+          x.exDate = new AlpacaTimestamp(x.exDate).date;
+          x.paymentDate = new AlpacaTimestamp(x.paymentDate).date;
+          x.recordDate = new AlpacaTimestamp(x.recordDate).date;
+          x.declaredDate = new AlpacaTimestamp(x.declaredDate).date;
           return x;
         })
       );
@@ -197,7 +197,7 @@ export class Symbol {
       })
       .then((json: any[]) =>
         json.map(x => {
-          x.timestamp = new AlpacaTimestamp(x.timestamp).getDate();
+          x.timestamp = new AlpacaTimestamp(x.timestamp).date;
           return x;
         })
       );
@@ -217,7 +217,7 @@ export class Symbol {
       })
       .then((json: any[]) =>
         json.map(x => {
-          x.reportDate = new AlpacaTimestamp(x.reportDate).getDate();
+          x.reportDate = new AlpacaTimestamp(x.reportDate).date;
           return x;
         })
       );
