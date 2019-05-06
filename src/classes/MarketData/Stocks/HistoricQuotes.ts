@@ -1,26 +1,70 @@
-import { AlpacaOptions } from '../../AlpacaOptions';
-import { PolygonEndpoint } from '../MarketDataEndpoint';
-import { HistoricOptions } from './HistoricTrades';
-
 export interface HistoricQuotesMap {
-  aE: 'askexchange';
-  aP: 'askprice';
-  aS: 'asksize';
-  bE: 'bidexchange';
-  bP: 'bidprice';
-  bS: 'bidsize';
-  c: 'condition';
-  t: 'timestamp';
+  /**
+   * Ask Exchange
+   */
+  aE: string;
+  /**
+   * Ask Price
+   */
+  aP: string;
+  /**
+   * Ask Size
+   */
+  aS: string;
+  /**
+   * Bid Exchange
+   */
+  bE: string;
+  /**
+   * Big Price
+   */
+  bP: string;
+  /**
+   * Big Size
+   */
+  bS: string;
+  /**
+   * Condition
+   */
+  c: string;
+  /**
+   * Timestamp
+   */
+  t: string;
 }
 
 export interface HistoricQuotesTick {
+  /**
+   * Condition of this quote
+   */
   c: number;
+  /**
+   * Bid Exchange
+   */
   bE: number;
+  /**
+   * Ask Exchange
+   */
   aE: number;
+  /**
+   * Ask Price
+   */
   aP: number;
+  /**
+   * Bid Price
+   */
   bP: number;
+  /**
+   * Bid Size
+   */
   bS: number;
+  /**
+   * Ask Size
+   */
   aS: number;
+  /**
+   * Timestamp of this trade
+   */
   t: number;
 }
 
@@ -31,39 +75,4 @@ export interface HistoricQuoteResponse {
   status: string;
   symbol: string;
   ticks: HistoricQuotesTick[];
-}
-
-export class HistoricQuote {
-  private apikey: string;
-
-  constructor(options: AlpacaOptions) {
-    this.apikey = options.publicKey;
-  }
-
-  get(options: HistoricOptions) {
-    const endpoint = `${PolygonEndpoint}/v1/historic/quotes/${
-      options.symbol
-    }/${options.date.getFullYear()}-${options.date.getMonth()}-${options.date.getDate()}`;
-
-    const url = new URL(endpoint);
-
-    url.searchParams.append('apiKey', this.apikey);
-
-    if (options.limit) {
-      url.searchParams.append('limit', options.limit.toString());
-    }
-
-    if (options.offset) {
-      url.searchParams.append('offset', options.offset.toString());
-    }
-
-    return fetch(url.href).then(async res => {
-      if (res.status === 200 || res.status === 204) {
-        return res.json();
-      } else {
-        const text = await res.text();
-        return Promise.reject(text);
-      }
-    });
-  }
 }

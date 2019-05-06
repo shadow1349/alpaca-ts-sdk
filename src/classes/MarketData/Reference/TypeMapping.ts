@@ -50,22 +50,3 @@ export interface TypesResponse {
   status: string;
   results: TypesResult;
 }
-
-export class Types {
-  private apikey: string;
-
-  constructor(options: AlpacaOptions) {
-    this.apikey = options.publicKey;
-  }
-
-  get(): Promise<TypesResponse> {
-    return fetch(`${PolygonEndpoint}/v2/reference/types?apiKey=${this.apikey}`).then(async res => {
-      if (res.status === 200 || res.status === 204) {
-        return res.json();
-      } else {
-        const text = await res.text();
-        return Promise.reject(text);
-      }
-    });
-  }
-}
