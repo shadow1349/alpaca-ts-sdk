@@ -4,6 +4,20 @@ You can view the [Polygon Docs](https://polygon.io/docs/#getting-started) for mo
 
 ## Documentation
 
+### Example
+
+```typescript
+import { Alpaca } from 'alpaca-ts-sdk'
+
+const sdk = new Alpaca({publicKey: 'MY_PUBLIC_KEY', secretKey: 'MY_SECRET_KEY', paper: true});
+
+(async () {
+    const data = await sdk.MarketData.Symbol.get('AAPL');
+
+    console.log(data);
+})();
+```
+
 ### Symbol
 
 ```typescript

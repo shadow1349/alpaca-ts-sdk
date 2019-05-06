@@ -6,8 +6,7 @@ import {
   Clock,
   Order,
   Position,
-  Symbol,
-  Ticker
+  MarketData
 } from './classes';
 
 export class Alpaca {
@@ -22,8 +21,7 @@ export class Alpaca {
   Position: Position;
 
   // Market Data Classes
-  Symbol: Symbol;
-  Ticker: Ticker;
+  MarketData: MarketData;
 
   constructor(options: AlpacaOptions) {
     this.options = options;
@@ -40,7 +38,6 @@ export class Alpaca {
     this.Position = new Position(this.options, endpoint);
 
     // Market Data Classes
-    this.Symbol = new Symbol(this.options);
-    this.Ticker = new Ticker(this.options);
+    this.MarketData = new MarketData(this.options);
   }
 }
