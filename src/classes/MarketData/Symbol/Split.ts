@@ -1,4 +1,4 @@
-export interface Split {
+export interface SplitEntity {
   symbol: string;
   exDate: Date;
   paymentDate: Date;

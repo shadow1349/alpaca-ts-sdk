@@ -7,9 +7,8 @@ import { Earning } from './Earning';
 import { AnalystRating } from './AnalystRating';
 import { Financial } from './Financial';
 import { News } from './News';
-import { Split } from './Split';
+import { SplitEntity } from './Split';
 import { Change } from './Change';
-import { AlpacaTimestamp } from '../../AlpacaTimestamp';
 
 export interface SymbolEntity {
   symbol: string;
@@ -120,7 +119,7 @@ export class Symbol {
     });
   }
 
-  getSplits(symbol: string): Promise<Split[]> {
+  getSplits(symbol: string): Promise<SplitEntity[]> {
     return fetch(
       `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/splits?apiKey=${this.apikey}`
     ).then(async res => {
@@ -149,14 +148,13 @@ export class Symbol {
   getFinancials(symbol: string): Promise<Financial[]> {
     return fetch(
       `${PolygonEndpoint}/v1/meta/symbols/${symbol.toUpperCase()}/financials?apiKey=${this.apikey}`
-    )
-      .then(async res => {
-        if (res.status === 200 || res.status === 204) {
-          return res.json();
-        } else {
-          const text = await res.text();
-          return Promise.reject(text);
-        }
-      });
+    ).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return res.json();
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
   }
 }
