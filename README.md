@@ -6,7 +6,11 @@ This is an UnOfficial TypeScript SDK for the popular Alpaca Platform.
 
 ## Installation
 
-`npm install alpaca-ts-sdk`
+`npm install alpaca-ts-sdk --save`
+
+If you want to try out the polygon integration install the beta package:
+
+`npm install alpaca-ts-sdk@beta --save`
 
 ## Example Usage
 
