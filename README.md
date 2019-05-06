@@ -26,6 +26,8 @@ const sdk = new Alpaca({publicKey: 'MY_PUBLIC_KEY', secretKey: 'MY_SECRET_KEY', 
 
 Check out the official [Alpaca Documentation](https://docs.alpaca.markets/api-documentation/web-api/)
 
+If you want to use Market Data check out the [Market Data](MarketData.md) docs.
+
 ### Exchange
 
 These are the available exchanges as detailed in the Alpaca Documentation. This type is used in a few of the interfaces

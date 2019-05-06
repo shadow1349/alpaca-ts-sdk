@@ -107,8 +107,6 @@ export class Ticker {
       url.searchParams.append('active', 'true');
     }
 
-    console.log(url.href);
-
     return fetch(url.href).then(async res => {
       if (res.status === 200 || res.status === 204) {
         return res.json();
