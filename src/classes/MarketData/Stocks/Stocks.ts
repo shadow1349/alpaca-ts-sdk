@@ -7,6 +7,7 @@ import { LastResponse } from './LastReference';
 import { URL } from 'url';
 import { PreviousCloseEntity } from './PreviousClose';
 import { AggregateOptions, AggregateEntity } from './Aggregates';
+import { TickerSnapshotResponse, SingleTickerSnapshotRespinse } from './Snapshots';
 
 export class Stocks {
   private apikey: string;
@@ -149,9 +150,69 @@ export class Stocks {
         options.multiplier ? options.multiplier : 1
       }/${
         options.timespan ? options.timespan : 'day'
-      }/${options.from.getFullYear()}-${options.from.getMonth()}-${options.from.getDate()}/${options.to.getFullYear()}-${options.to.getMonth()}-${options.to.getDate()}`
+      }/${options.from.getFullYear()}-${options.from.getMonth()}-${options.from.getDate()}/${options.to.getFullYear()}-${options.to.getMonth()}-${options.to.getDate()}?apiKey=${
+        this.apikey
+      }`
     );
     return fetch(url.href).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return res.json();
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
+  }
+
+  getTicketSnapshots(): Promise<TickerSnapshotResponse> {
+    return fetch(
+      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/tickers?apiKey=${this.apikey}`
+    ).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return res.json();
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
+  }
+
+  getSingleTickerSnapshot(symbol: string): Promise<SingleTickerSnapshotRespinse> {
+    return fetch(
+      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/tickers/${symbol.toUpperCase()}?apiKey=${
+        this.apikey
+      }`
+    ).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return res.json();
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
+  }
+
+  getMarketGainersSnapshot(): Promise<TickerSnapshotResponse> {
+    return fetch(
+      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/gainers?apiKey=${
+        this.apikey
+      }`
+    ).then(async res => {
+      if (res.status === 200 || res.status === 204) {
+        return res.json();
+      } else {
+        const text = await res.text();
+        return Promise.reject(text);
+      }
+    });
+  }
+
+  getMarketLosersSnapshot(): Promise<TickerSnapshotResponse> {
+    return fetch(
+      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/losers?apiKey=${
+        this.apikey
+      }`
+    ).then(async res => {
       if (res.status === 200 || res.status === 204) {
         return res.json();
       } else {
