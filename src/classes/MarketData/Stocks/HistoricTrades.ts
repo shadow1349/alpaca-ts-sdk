@@ -1,32 +1,12 @@
-export interface HistoricTradesMap {
-  c1: string;
-  c2: string;
-  c3: string;
-  c4: string;
-  e: string;
-  p: string;
-  s: string;
-  t: string;
-}
-
-export interface HistoricTradeTick {
-  c1: number;
-  c2: number;
-  c3: number;
-  c4: number;
-  e: number;
-  p: number;
-  s: number;
-  t: number;
-}
+import { StocksSnapshotAgg } from './Snapshots';
 
 export interface HistoricTradeResponse {
   day: string;
-  map: HistoricTradesMap;
+  map: StocksSnapshotAgg;
   msLatency: number;
   status: string;
   symbol: string;
-  ticks: HistoricTradeTick[];
+  ticks: StocksSnapshotAgg[];
 }
 
 export interface HistoricOptions {

@@ -1,8 +1,3 @@
-import fetch from 'node-fetch';
-import { URL } from 'url';
-import { AlpacaOptions } from '../../AlpacaOptions';
-import { PolygonEndpoint } from '../MarketDataEndpoint';
-
 export type TickerMarket = 'STOCKS' | 'INDICIES' | 'CRYPTO' | 'FX' | 'BONDS' | 'MF' | 'MMF';
 
 export type TickerCodes = {

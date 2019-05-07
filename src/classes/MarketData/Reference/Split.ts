@@ -1,7 +1,4 @@
-import { AlpacaOptions } from '../../AlpacaOptions';
-import fetch from 'node-fetch';
-import { SplitEntity } from '../Symbol/Split';
-import { PolygonEndpoint } from '../MarketDataEndpoint';
+import { SplitEntity } from '../Symbol';
 
 export interface SplitResult {
   status: string;
