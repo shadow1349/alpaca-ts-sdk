@@ -1,5 +1,9 @@
 # Alpaca TypeScript SDK Changelog
 
+## 1.0.7-beta.7
+
+Finished stocks Polygon intragration
+
 ## 1.0.7-beta.6
 
 Added Polygon to it's own Market Data class
