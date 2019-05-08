@@ -150,14 +150,17 @@ export class Stocks {
 
   getAggregates(options: AggregateOptions): Promise<AggregateEntity> {
     const from = `${options.from.getFullYear()}-${
-      options.from.getMonth() + 1 > 10 ? '' : '0'
+      options.from.getMonth() + 1 < 10 ? '0' : ''
     }${options.from.getMonth() + 1}-${
-      options.from.getDate() > 10 ? '' : '0'
+      options.from.getDate() < 10 ? '0' : ''
     }${options.from.getDate()}`;
 
     const to = `${options.to.getFullYear()}-${
-      options.to.getMonth() + 1 > 10 ? '' : '0'
-    }${options.to.getMonth() + 1}-${options.to.getDate() > 10 ? '' : '0'}${options.to.getDate()}`;
+      options.to.getMonth() + 1 < 10 ? '0' : ''
+    }${options.to.getMonth() + 1}-${options.to.getDate() < 10 ? '0' : ''}${options.to.getDate()}`;
+
+    console.log('FROM: ', from);
+    console.log('TO: ', to);
 
     const url = new URL(
       `${PolygonEndpoint}/v2/aggs/ticker/${options.ticker.toUpperCase()}/range/${
