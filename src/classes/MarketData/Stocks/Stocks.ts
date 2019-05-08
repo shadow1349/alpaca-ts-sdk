@@ -8,6 +8,7 @@ import { URL } from 'url';
 import { PreviousCloseEntity } from './PreviousClose';
 import { AggregateOptions, AggregateEntity } from './Aggregates';
 import { TickerSnapshotResponse, SingleTickerSnapshotRespinse } from './Snapshots';
+import fetch from 'node-fetch';
 
 export class Stocks {
   private apikey: string;
@@ -18,9 +19,8 @@ export class Stocks {
 
   getDailyOpenAndClose(symbol: string, date: Date): Promise<DailyOpenCloseEntity> {
     return fetch(
-      `${PolygonEndpoint}/v1/open-close/${symbol.toUpperCase()}/${date.getFullYear()}-${date.getMonth()}-${date.getDate()}?apiKey=${
-        this.apikey
-      }`
+      `${PolygonEndpoint}/v1/open-close/${symbol.toUpperCase()}/${date.getFullYear()}-${date.getMonth() +
+        1}-${date.getDate()}?apiKey=${this.apikey}`
     ).then(async res => {
       if (res.status === 200 || res.status === 204) {
         return res.json();
@@ -45,7 +45,7 @@ export class Stocks {
   getHistoricQuotes(options: HistoricOptions) {
     const endpoint = `${PolygonEndpoint}/v1/historic/quotes/${
       options.symbol
-    }/${options.date.getFullYear()}-${options.date.getMonth()}-${options.date.getDate()}`;
+    }/${options.date.getFullYear()}-${options.date.getMonth() + 1}-${options.date.getDate()}`;
 
     const url = new URL(endpoint);
 
@@ -72,7 +72,11 @@ export class Stocks {
   getHistoricTrades(options: HistoricOptions) {
     const endpoint = `${PolygonEndpoint}/v1/historic/trades/${
       options.symbol
-    }/${options.date.getFullYear()}-${options.date.getMonth()}-${options.date.getDate()}`;
+    }/${options.date.getFullYear()}-${
+      options.date.getMonth() + 1 > 10 ? '' : '0'
+    }${options.date.getMonth() + 1}-${
+      options.date.getDate() > 10 ? '' : '0'
+    }${options.date.getDate()}`;
 
     const url = new URL(endpoint);
 
@@ -145,14 +149,20 @@ export class Stocks {
   }
 
   getAggregates(options: AggregateOptions): Promise<AggregateEntity> {
+    const from = `${options.from.getFullYear()}-${
+      options.from.getMonth() + 1 > 10 ? '' : '0'
+    }${options.from.getMonth() + 1}-${
+      options.from.getDate() > 10 ? '' : '0'
+    }${options.from.getDate()}`;
+
+    const to = `${options.to.getFullYear()}-${
+      options.to.getMonth() + 1 > 10 ? '' : '0'
+    }${options.to.getMonth() + 1}-${options.to.getDate() > 10 ? '' : '0'}${options.to.getDate()}`;
+
     const url = new URL(
       `${PolygonEndpoint}/v2/aggs/ticker/${options.ticker.toUpperCase()}/range/${
         options.multiplier ? options.multiplier : 1
-      }/${
-        options.timespan ? options.timespan : 'day'
-      }/${options.from.getFullYear()}-${options.from.getMonth()}-${options.from.getDate()}/${options.to.getFullYear()}-${options.to.getMonth()}-${options.to.getDate()}?apiKey=${
-        this.apikey
-      }`
+      }/${options.timespan ? options.timespan : 'day'}/${from}/${to}?apiKey=${this.apikey}`
     );
     return fetch(url.href).then(async res => {
       if (res.status === 200 || res.status === 204) {
@@ -194,9 +204,7 @@ export class Stocks {
 
   getMarketGainersSnapshot(): Promise<TickerSnapshotResponse> {
     return fetch(
-      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/gainers?apiKey=${
-        this.apikey
-      }`
+      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/gainers?apiKey=${this.apikey}`
     ).then(async res => {
       if (res.status === 200 || res.status === 204) {
         return res.json();
@@ -209,9 +217,7 @@ export class Stocks {
 
   getMarketLosersSnapshot(): Promise<TickerSnapshotResponse> {
     return fetch(
-      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/losers?apiKey=${
-        this.apikey
-      }`
+      `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/losers?apiKey=${this.apikey}`
     ).then(async res => {
       if (res.status === 200 || res.status === 204) {
         return res.json();

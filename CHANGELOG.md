@@ -1,5 +1,9 @@
 # Alpaca TypeScript SDK Changelog
 
+## 1.0.7-beta.9
+
+Bugfixes
+
 ## 1.0.7-beta.7
 
 Finished stocks Polygon intragration

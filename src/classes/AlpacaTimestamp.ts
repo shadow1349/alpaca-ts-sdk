@@ -2,12 +2,12 @@
 
 export const GetAlpacaTimestamp = function(date: Date) {
   const GMTTime = new Date(date.valueOf() + date.getTimezoneOffset() * 60000);
-  return`${GMTTime.getFullYear()}-${
-    GMTTime.getMonth() < 10 ? `0${GMTTime.getMonth()}` : GMTTime.getMonth()
+  return `${GMTTime.getFullYear()}-${
+    GMTTime.getMonth() < 10 ? `0${GMTTime.getMonth() + 1}` : GMTTime.getMonth() + 1
   }-${
     GMTTime.getDate() < 10 ? `0${GMTTime.getDate()}` : GMTTime.getDate()
   }T${GMTTime.getHours()}:${GMTTime.getMinutes()}:${GMTTime.getSeconds()}Z`;
-}
+};
 
 export class AlpacaTimestamp {
   dateString: string;
@@ -25,7 +25,7 @@ export class AlpacaTimestamp {
 
   private getTimestamp(date: Date) {
     return `${date.getFullYear()}-${
-      date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+      date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
     }-${
       date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()
     }T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}Z`;
