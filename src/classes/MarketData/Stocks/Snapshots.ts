@@ -2,13 +2,13 @@ export interface TickerSnapshotEntity {
   todaysChange: number;
   todaysChangePerc: number;
   updated: number;
-  day: TickerSnapshotEntityDay;
+  day: TickerSnapshotEntityAgg;
   lastTrade: StocksSnapshotAgg;
-  min: StocksSnapshotAgg;
-  prevDay: StocksSnapshotAgg;
+  min: TickerSnapshotEntityAgg;
+  prevDay: TickerSnapshotEntityAgg;
 }
 
-export interface TickerSnapshotEntityDay {
+export interface TickerSnapshotEntityAgg {
   /**
    * Close Price
    */
