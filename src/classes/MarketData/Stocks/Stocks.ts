@@ -7,7 +7,7 @@ import { LastResponse } from './LastReference';
 import { URL } from 'url';
 import { PreviousCloseEntity } from './PreviousClose';
 import { AggregateOptions, AggregateEntity } from './Aggregates';
-import { TickerSnapshotResponse, SingleTickerSnapshotRespinse } from './Snapshots';
+import { TickerSnapshotResponse, SingleTickerSnapshotResponse } from './Snapshots';
 import fetch from 'node-fetch';
 
 export class Stocks {
@@ -159,9 +159,6 @@ export class Stocks {
       options.to.getMonth() + 1 < 10 ? '0' : ''
     }${options.to.getMonth() + 1}-${options.to.getDate() < 10 ? '0' : ''}${options.to.getDate()}`;
 
-    console.log('FROM: ', from);
-    console.log('TO: ', to);
-
     const url = new URL(
       `${PolygonEndpoint}/v2/aggs/ticker/${options.ticker.toUpperCase()}/range/${
         options.multiplier ? options.multiplier : 1
@@ -177,7 +174,7 @@ export class Stocks {
     });
   }
 
-  getTicketSnapshots(): Promise<TickerSnapshotResponse> {
+  getTickerSnapshots(): Promise<TickerSnapshotResponse> {
     return fetch(
       `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/tickers?apiKey=${this.apikey}`
     ).then(async res => {
@@ -190,7 +187,7 @@ export class Stocks {
     });
   }
 
-  getSingleTickerSnapshot(symbol: string): Promise<SingleTickerSnapshotRespinse> {
+  getSingleTickerSnapshot(symbol: string): Promise<SingleTickerSnapshotResponse> {
     return fetch(
       `${PolygonEndpoint}/v2/snapshot/locale/us/markets/stocks/tickers/${symbol.toUpperCase()}?apiKey=${
         this.apikey

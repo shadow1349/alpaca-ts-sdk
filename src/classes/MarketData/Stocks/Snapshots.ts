@@ -71,7 +71,7 @@ export interface TickerSnapshotResponse {
   tickers: TickerSnapshotEntity[];
 }
 
-export interface SingleTickerSnapshotRespinse {
+export interface SingleTickerSnapshotResponse {
   status: string;
-  tickers: TickerSnapshotEntity;
+  ticker: TickerSnapshotEntity;
 }

@@ -1,6 +1,6 @@
 {
   "name": "alpaca-ts-sdk",
-  "version": "1.0.7-beta.10",
+  "version": "1.0.7-beta.12",
   "description": "UnOfficial Alpaca Trading SDK for TypeScript",
   "main": "lib/index.js",
   "scripts": {
