@@ -4,28 +4,28 @@ import { bb } from './overlays';
 /* indicators */
 
 export function adl(high: number[], low: number[], close: number[], volume: number[]) {
-  let adl = [(volume[0] * (2 * close[0] - low[0] - high[0])) / (high[0] - low[0])];
+  const _adl = [(volume[0] * (2 * close[0] - low[0] - high[0])) / (high[0] - low[0])];
   for (let i = 1, len = high.length; i < len; i++) {
-    adl[i] = adl[i - 1] + (volume[i] * (2 * close[i] - low[i] - high[i])) / (high[i] - low[i]);
+    _adl[i] = _adl[i - 1] + (volume[i] * (2 * close[i] - low[i] - high[i])) / (high[i] - low[i]);
   }
-  return adl;
+  return _adl;
 }
 
 export function adx(high: number[], low: number[], close: number[], window: number) {
   let dmp = [0],
     dmm = [0];
   for (let i = 1, len = low.length; i < len; i++) {
-    let hd = high[i] - high[i - 1];
-    let ld = low[i - 1] - low[i];
+    const hd = high[i] - high[i - 1];
+    const ld = low[i - 1] - low[i];
     dmp.push(hd > ld ? Math.max(hd, 0) : 0);
     dmm.push(ld > hd ? Math.max(ld, 0) : 0);
   }
-  let str = wilderSmooth(trueRange(high, low, close), window);
+  const str = wilderSmooth(trueRange(high, low, close), window);
   dmp = wilderSmooth(dmp, window);
   dmm = wilderSmooth(dmm, window);
-  let dip = pointwise((a, b) => (100 * a) / b, dmp, str);
-  let dim = pointwise((a, b) => (100 * a) / b, dmm, str);
-  let dx = pointwise((a, b) => (100 * Math.abs(a - b)) / (a + b), dip, dim);
+  const dip = pointwise((a, b) => (100 * a) / b, dmp, str);
+  const dim = pointwise((a, b) => (100 * a) / b, dmm, str);
+  const dx = pointwise((a, b) => (100 * Math.abs(a - b)) / (a + b), dip, dim);
   return {
     dip: dip,
     dim: dim,
@@ -34,14 +34,14 @@ export function adx(high: number[], low: number[], close: number[], window: numb
 }
 
 export function bbp(close: number[], window: number, mult: number) {
-  let band = bb(close, window, mult);
+  const band = bb(close, window, mult);
   return pointwise((p, u, l) => (p - l) / (u - l), close, band.upper, band.lower);
 }
 
 export function cci(high: number[], low: number[], close: number[], window: number, mult: number) {
-  let tp = typicalPrice(high, low, close);
-  let tpsma = sma(tp, window);
-  let tpmad = madev(tp, window);
+  const tp = typicalPrice(high, low, close);
+  const tpsma = sma(tp, window);
+  const tpmad = madev(tp, window);
   tpmad[0] = Infinity;
   return pointwise((a, b, c) => (a - b) / (c * mult), tp, tpsma, tpmad);
 }
@@ -54,12 +54,12 @@ export function cho(
   winshort: number,
   winlong: number
 ) {
-  let adli = adl(high, low, close, volume);
+  const adli = adl(high, low, close, volume);
   return pointwise((s, l) => s - l, ema(adli, winshort), ema(adli, winlong));
 }
 
 export function fi(close: number[], volume: number[], window: number) {
-  let delta = rolling((x: number[]) => x[x.length - 1] - x[0], 2, close);
+  const delta = rolling((x: number[]) => x[x.length - 1] - x[0], 2, close);
   return ema(pointwise((a, b) => a * b, delta, volume), window);
 }
 
@@ -101,7 +101,7 @@ export function mfi(
     nmf = [0];
   const tp = typicalPrice(high, low, close);
   for (let i = 1, len = close.length; i < len; i++) {
-    let diff = tp[i] - tp[i - 1];
+    const diff = tp[i] - tp[i - 1];
     pmf.push(diff >= 0 ? tp[i] * volume[i] : 0);
     nmf.push(diff < 0 ? tp[i] * volume[i] : 0);
   }
@@ -181,7 +181,7 @@ export function stochRsi(close: number[], window: number, signal: number, smooth
     window,
     _rsi
   );
-  let K = pointwise((rsi, e) => (rsi - e.low) / (e.high - e.low), _rsi, extreme);
+  let K = pointwise((__rsi, e) => (__rsi - e.low) / (e.high - e.low), _rsi, extreme);
   K[0] = 0;
   if (smooth > 1) {
     K = sma(K, smooth);
