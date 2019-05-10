@@ -69,7 +69,7 @@ export function vbp(close: number[], volume: number[], zones: number, left: numb
   let total = 0;
   let bottom = Infinity;
   let top = -Infinity;
-  const vbp = new Array(zones).fill(0);
+  const _vbp = new Array(zones).fill(0);
   right = !isNaN(right) ? right : close.length;
   for (let i = left; i < right; i++) {
     total += volume[i];
@@ -77,12 +77,12 @@ export function vbp(close: number[], volume: number[], zones: number, left: numb
     bottom = bottom > close[i] ? close[i] : bottom;
   }
   for (let i = left; i < right; i++) {
-    vbp[Math.floor(((close[i] - bottom) / (top - bottom)) * (zones - 1))] += volume[i];
+    _vbp[Math.floor(((close[i] - bottom) / (top - bottom)) * (zones - 1))] += volume[i];
   }
   return {
     bottom: bottom,
     top: top,
-    volumes: vbp.map(x => {
+    volumes: _vbp.map(x => {
       return x / total;
     })
   };

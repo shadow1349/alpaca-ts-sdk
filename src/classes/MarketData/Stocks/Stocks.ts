@@ -9,12 +9,13 @@ import { PreviousCloseEntity } from './PreviousClose';
 import { AggregateOptions, AggregateEntity } from './Aggregates';
 import { TickerSnapshotResponse, SingleTickerSnapshotResponse } from './Snapshots';
 import fetch from 'node-fetch';
+import { BarsResponse, BarsOptions, BarEntityResult } from './Bars';
 
 export class Stocks {
   private apikey: string;
 
-  constructor(options: AlpacaOptions) {
-    this.apikey = options.publicKey;
+  constructor(private options: AlpacaOptions) {
+    this.apikey = this.options.publicKey;
   }
 
   getDailyOpenAndClose(symbol: string, date: Date): Promise<DailyOpenCloseEntity> {
@@ -70,13 +71,9 @@ export class Stocks {
   }
 
   getHistoricTrades(options: HistoricOptions) {
-    const endpoint = `${PolygonEndpoint}/v1/historic/trades/${
-      options.symbol
-    }/${options.date.getFullYear()}-${
-      options.date.getMonth() + 1 > 10 ? '' : '0'
-    }${options.date.getMonth() + 1}-${
-      options.date.getDate() > 10 ? '' : '0'
-    }${options.date.getDate()}`;
+    const endpoint = `${PolygonEndpoint}/v1/historic/trades/${options.symbol}/${getISODate(
+      options.date
+    )}`;
 
     const url = new URL(endpoint);
 
@@ -149,15 +146,9 @@ export class Stocks {
   }
 
   getAggregates(options: AggregateOptions): Promise<AggregateEntity> {
-    const from = `${options.from.getFullYear()}-${
-      options.from.getMonth() + 1 < 10 ? '0' : ''
-    }${options.from.getMonth() + 1}-${
-      options.from.getDate() < 10 ? '0' : ''
-    }${options.from.getDate()}`;
+    const from = getISODate(options.from);
 
-    const to = `${options.to.getFullYear()}-${
-      options.to.getMonth() + 1 < 10 ? '0' : ''
-    }${options.to.getMonth() + 1}-${options.to.getDate() < 10 ? '0' : ''}${options.to.getDate()}`;
+    const to = getISODate(options.to);
 
     const url = new URL(
       `${PolygonEndpoint}/v2/aggs/ticker/${options.ticker.toUpperCase()}/range/${
@@ -227,4 +218,52 @@ export class Stocks {
       }
     });
   }
+
+  getBars(options: BarsOptions): Promise<BarsResponse> {
+    const url = new URL(`https://data.alpaca.markets/v1/bars/${options.timeframe}`);
+
+    url.searchParams.append(
+      'symbols',
+      Array.isArray(options.symbols)
+        ? options.symbols.reduce((acc, cur) => `${acc},${cur}`)
+        : options.symbols
+    );
+
+    if (options.limit) {
+      url.searchParams.append('limit', options.limit.toString());
+    }
+
+    if (options.start) {
+      url.searchParams.append('start', getISODate(options.start));
+    }
+
+    if (options.end) {
+      url.searchParams.append('end', getISODate(options.end));
+    }
+
+    if (options.until) {
+      url.searchParams.append('start', getISODate(options.until));
+    }
+
+    return fetch(url.href, {
+      headers: {
+        'APCA-API-KEY-ID': this.options.publicKey,
+        'APCA-API-SECRET-KEY': this.options.secretKey
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        const results = Object.keys(json).map(x => {
+          return { symbol: x, results: json[`${x}`] };
+        });
+
+        return { results: results };
+      });
+  }
+}
+
+function getISODate(date: Date) {
+  return `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' : ''}${date.getMonth() + 1}-${
+    date.getDate() < 10 ? '0' : ''
+  }${date.getDate()}`;
 }

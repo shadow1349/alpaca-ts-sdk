@@ -127,14 +127,14 @@ export function wilderSmooth(series: number[], window: number) {
   return result;
 }
 
-//   /* price transformations */
+/* price transformations */
 
 export function typicalPrice(high: number[], low: number[], close: number[]) {
   return pointwise((a, b, c) => (a + b + c) / 3, high, low, close);
 }
 
 export function trueRange(high: number[], low: number[], close: number[]) {
-  let tr = [high[0] - low[0]];
+  const tr = [high[0] - low[0]];
   for (let i = 1, len = low.length; i < len; i++) {
     tr.push(
       Math.max(high[i] - low[i], Math.abs(high[i] - close[i - 1]), Math.abs(low[i] - close[i - 1]))
