@@ -2,7 +2,7 @@ import { AlpacaOptions } from '../../AlpacaOptions';
 import { DailyOpenCloseEntity } from './DailyOpenClose';
 import { PolygonEndpoint } from '../MarketDataEndpoint';
 import { ExchangeEntity } from './Exchanges';
-import { HistoricOptions } from './HistoricTrades';
+import { HistoricOptions, HistoricTradeResponse } from './HistoricTrades';
 import { LastResponse } from './LastReference';
 import { URL } from 'url';
 import { PreviousCloseEntity } from './PreviousClose';
@@ -10,6 +10,7 @@ import { AggregateOptions, AggregateEntity } from './Aggregates';
 import { TickerSnapshotResponse, SingleTickerSnapshotResponse } from './Snapshots';
 import fetch from 'node-fetch';
 import { BarsResponse, BarsOptions, BarEntityResult } from './Bars';
+import { HistoricQuoteResponse } from './HistoricQuotes';
 
 export class Stocks {
   private apikey: string;
@@ -43,7 +44,7 @@ export class Stocks {
     });
   }
 
-  getHistoricQuotes(options: HistoricOptions) {
+  getHistoricQuotes(options: HistoricOptions): Promise<HistoricQuoteResponse> {
     const endpoint = `${PolygonEndpoint}/v1/historic/quotes/${
       options.symbol
     }/${options.date.getFullYear()}-${options.date.getMonth() + 1}-${options.date.getDate()}`;
@@ -70,7 +71,7 @@ export class Stocks {
     });
   }
 
-  getHistoricTrades(options: HistoricOptions) {
+  getHistoricTrades(options: HistoricOptions): Promise<HistoricTradeResponse> {
     const endpoint = `${PolygonEndpoint}/v1/historic/trades/${options.symbol}/${getISODate(
       options.date
     )}`;
