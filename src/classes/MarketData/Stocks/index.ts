@@ -6,3 +6,4 @@ export * from './HistoricTrades';
 export * from './LastReference';
 export * from './PreviousClose';
 export * from './Stocks';
+export * from './Snapshots';
