@@ -16,5 +16,5 @@ export interface AnalystRating {
   hold: Rating;
   sell: Rating;
   strongSell: Rating;
-  updated: Date;
+  updated: number;
 }

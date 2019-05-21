@@ -1,6 +1,6 @@
 export interface Earning {
   symbol: string;
-  EPSReportDate: Date;
+  EPSReportDate: number;
   EPSReportDateStr: string;
   fiscalPeriod: string;
   fiscalEndDate: string;

@@ -47,13 +47,13 @@ export type SubmitOrderOptions = {
 export interface OrderEntity {
   id: string;
   client_order_id: string;
-  created_at: Date;
-  updated_at?: Date;
-  submitted_at?: Date;
-  filled_at?: Date;
-  expired_at?: Date;
-  canceled_at?: Date;
-  failed_at?: Date;
+  created_at: string;
+  updated_at?: string;
+  submitted_at?: string;
+  filled_at?: string;
+  expired_at?: string;
+  canceled_at?: string;
+  failed_at?: string;
   asset_id: string;
   symbol: string;
   asset_class: string;

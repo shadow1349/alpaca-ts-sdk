@@ -1,9 +1,9 @@
 export interface SplitEntity {
   symbol: string;
-  exDate: Date;
-  paymentDate: Date;
-  recordDate: Date;
-  declaredDate: Date;
+  exDate: number;
+  paymentDate: number;
+  recordDate: number;
+  declaredDate: number;
   ratio: number;
   tofactor: number;
   forfactor: number;

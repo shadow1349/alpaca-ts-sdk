@@ -1,7 +1,6 @@
 import { AlpacaOptions } from './AlpacaOptions';
 import { AlpacaSecurityHeaders } from './AlpacaHeaders';
 import fetch from 'node-fetch';
-import { AlpacaTimestamp } from './AlpacaTimestamp';
 
 export type AccountStatus =
   | 'ONBOARDING'

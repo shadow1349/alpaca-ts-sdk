@@ -38,7 +38,7 @@ export interface TickerEntity {
   type?: string;
   codes?: TickerCodes;
   attrs?: TickerAttributes;
-  updated: Date;
+  updated: number;
   url: string;
 }
 

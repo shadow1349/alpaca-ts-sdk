@@ -5,6 +5,6 @@ export interface News {
   source: string;
   summary: string;
   image?: string;
-  timestamp: Date;
+  timestamp: number;
   keywords: string[];
 }

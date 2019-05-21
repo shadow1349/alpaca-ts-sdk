@@ -20,5 +20,5 @@ export interface Company {
   description: string;
   similar?: string[];
   tags?: string[];
-  updated: Date;
+  updated: number;
 }

@@ -6,6 +6,7 @@ export interface TickerSnapshotEntity {
   lastTrade: StocksSnapshotAgg;
   min: TickerSnapshotEntityAgg;
   prevDay: TickerSnapshotEntityAgg;
+  ticker: string;
 }
 
 export interface TickerSnapshotEntityAgg {
